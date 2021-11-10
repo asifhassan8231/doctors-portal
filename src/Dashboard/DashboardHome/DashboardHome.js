@@ -5,12 +5,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import Appointments from '../Appointments/Appointments';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
-    useParams,
-    useRouteMatch
 } from "react-router-dom";
 
 const DashboardHome = () => {

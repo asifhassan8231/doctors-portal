@@ -1,7 +1,7 @@
-import { Alert, Button, Container, Grid, LinearProgress, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Button, Container, Grid, LinearProgress, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png';
 

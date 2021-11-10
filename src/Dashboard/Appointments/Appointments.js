@@ -17,7 +17,7 @@ const Appointments = ({ date }) => {
             .then(data => {
                 setAppointments(data);
             })
-    }, [date])
+    }, [date, user.email, token])
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 550 }} aria-label="simple table">
