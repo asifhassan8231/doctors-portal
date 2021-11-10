@@ -1,17 +1,25 @@
-import { AppBar, Button, CssBaseline, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemText, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { LocalizationProvider, StaticDatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import Appointments from '../Appointments/Appointments';
-import { Link } from 'react-router-dom';
+import {
+    Switch,
+    Route,
+    Link,
+    useRouteMatch
+} from "react-router-dom";
+import DashboardHome from '../DashboardHome/DashboardHome';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import AddDoctor from '../AddDoctor/AddDoctor';
+import useAuth from '../../hooks/useAuth';
+import AdminRoute from '../../components/Login/AdminRoute/AdminRoute';
 const drawerWidth = 220;
 
 const Dashboard = (props) => {
     const { window } = props;
+    const { admin } = useAuth();
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [date, setDate] = React.useState(new Date());
+    let { path, url } = useRouteMatch();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -23,6 +31,10 @@ const Dashboard = (props) => {
 
             </Toolbar>
             <Divider />
+            <Link to='/appointment'><Button color="inherit">Appointment</Button></Link>
+            <Link to={`${url}`}><Button color="inherit">Dashboard</Button></Link>
+            {admin && <Box><Link to={`${url}/makeAdmin`}><Button color="inherit">Make Admin</Button></Link>
+                <Link to={`${url}/addDoctor`}><Button color="inherit">Add Doctor</Button></Link></Box>}
             <List>
                 {['Dashboard', 'Appointment', 'Patients', 'Prescriptions'].map((text, index) => (
                     <ListItem button key={text}>
@@ -65,7 +77,6 @@ const Dashboard = (props) => {
                 component="nav"
                 sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
                 aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 
                 <Drawer
                     container={container}
@@ -100,28 +111,17 @@ const Dashboard = (props) => {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={5}>
-                        <Box>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <StaticDatePicker
-                                    displayStaticWrapperAs="desktop"
-                                    openTo="day"
-                                    value={date}
-                                    onChange={(newValue) => {
-                                        setDate(newValue);
-                                    }}
-                                    renderInput={(params) => <TextField {...params} />}
-                                />
-                            </LocalizationProvider>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={7}>
-                        <Appointments date={date}></Appointments>
-                        <hr />
-                        <Link to="/appointment" style={{ textDecoration: 'none', color: 'green' }}><Button color="inherit">Make Appointment</Button></Link>
-                    </Grid>
-                </Grid>
+                <Switch>
+                    <Route exact path={path}>
+                        <DashboardHome></DashboardHome>
+                    </Route>
+                    <AdminRoute path={`${path}/makeAdmin`}>
+                        <MakeAdmin></MakeAdmin>
+                    </AdminRoute>
+                    <AdminRoute path={`${path}/addDoctor`}>
+                        <AddDoctor></AddDoctor>
+                    </AdminRoute>
+                </Switch>
             </Box>
         </Box>
     );
