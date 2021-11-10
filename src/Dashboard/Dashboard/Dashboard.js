@@ -1,10 +1,11 @@
-import { AppBar, CssBaseline, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemText, TextField, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, CssBaseline, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemText, TextField, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { LocalizationProvider, StaticDatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Appointments from '../Appointments/Appointments';
+import { Link } from 'react-router-dom';
 const drawerWidth = 220;
 
 const Dashboard = (props) => {
@@ -19,9 +20,7 @@ const Dashboard = (props) => {
     const drawer = (
         <div>
             <Toolbar >
-                <Typography variant="h6" noWrap component="div">
-                    Doctors Portal
-                </Typography>
+
             </Toolbar>
             <Divider />
             <List>
@@ -57,7 +56,7 @@ const Dashboard = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Appointments
+                        Dashboard
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -118,7 +117,9 @@ const Dashboard = (props) => {
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={7}>
-                        <Appointments></Appointments>
+                        <Appointments date={date}></Appointments>
+                        <hr />
+                        <Link to="/appointment" style={{ textDecoration: 'none', color: 'green' }}><Button color="inherit">Make Appointment</Button></Link>
                     </Grid>
                 </Grid>
             </Box>
