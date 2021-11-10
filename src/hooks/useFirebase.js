@@ -98,11 +98,12 @@ const useFirebase = () => {
     }, [auth])
 
     useEffect(() => {
-        fetch(`https://salty-brook-32025.herokuapp.com/${user?.email}`)
+        fetch(`https://salty-brook-32025.herokuapp.com/users/${user?.email}`)
             .then(res => res.json())
             .then(data => setAdmin(data.admin)
             )
     }, [user?.email])
+    console.log(admin);
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
