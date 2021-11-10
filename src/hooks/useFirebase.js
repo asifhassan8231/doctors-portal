@@ -51,6 +51,9 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
+                setUser(user);
+                const redirect_ui = location?.state?.from || '/';
+                history.replace(redirect_ui);
                 setAuthError('');
             }).catch((error) => {
                 setAuthError(error.message);

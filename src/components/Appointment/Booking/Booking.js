@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import BookingModal from '../BookingModal/BookingModal';
 
-const Booking = ({ booking, date }) => {
+const Booking = ({ booking, date, setBookingSuccess }) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -21,7 +21,7 @@ const Booking = ({ booking, date }) => {
                     </Box>
                 </Paper>
             </Grid>
-            <BookingModal booking={booking} open={open} handleClose={handleClose} date={date}></BookingModal>
+            <BookingModal booking={booking} open={open} handleClose={handleClose} date={date} setBookingSuccess={setBookingSuccess}></BookingModal>
         </>
     );
 };
