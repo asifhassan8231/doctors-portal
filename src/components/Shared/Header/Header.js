@@ -24,7 +24,10 @@ const Header = () => {
                         <Link to="/home" style={{ textDecoration: 'none', color: 'white' }}>Doctors Portal</Link>
                     </Typography>
                     <Link to="/appointment" style={{ textDecoration: 'none', color: 'white' }}><Button color="inherit">Appointment</Button></Link>
-                    {user ? <Button color="inherit" onClick={logout}>Logout</Button> : <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}><Button color="inherit">Login</Button></Link>}
+                    {user ? <Box>
+                        <Link to="/dashboard" style={{ textDecoration: 'none', color: 'white' }}><Button color="inherit">Dashboard</Button></Link>
+                        <Button color="inherit" onClick={logout}>Logout</Button>
+                    </Box> : <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}><Button color="inherit">Login</Button></Link>}
                 </Toolbar>
             </AppBar>
         </Box>
