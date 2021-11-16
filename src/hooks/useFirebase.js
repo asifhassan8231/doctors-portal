@@ -103,7 +103,6 @@ const useFirebase = () => {
             .then(data => setAdmin(data.admin)
             )
     }, [user?.email])
-    console.log(admin);
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
