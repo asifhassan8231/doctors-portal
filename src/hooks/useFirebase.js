@@ -16,7 +16,7 @@ const useFirebase = () => {
     const googleProvider = new GoogleAuthProvider();
 
 
-    const registerUser = (email, password, name, history) => {
+    const registerUser = (email, password, name, navigate) => {
         setLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -30,7 +30,7 @@ const useFirebase = () => {
                     displayName: name
                 }).then(() => {
                 }).catch((error) => { });
-                history.replace('/');
+                navigate('/');
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -38,12 +38,12 @@ const useFirebase = () => {
             .finally(() => setLoading(false));
     }
 
-    const loginUser = (email, password, location, history) => {
+    const loginUser = (email, password, location, navigate) => {
         setLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const redirect_ui = location?.state?.from || '/';
-                history.replace(redirect_ui);
+                navigate(redirect_ui);
                 setAuthError('');
             })
             .catch((error) => {
@@ -52,7 +52,7 @@ const useFirebase = () => {
             .finally(() => setLoading(false));
     }
 
-    const signInWithGoogle = (location, history) => {
+    const signInWithGoogle = (location, navigate) => {
         setLoading(true);
         signInWithPopup(auth, googleProvider)
             .then((result) => {
@@ -60,7 +60,7 @@ const useFirebase = () => {
                 //save user to db
                 saveUser(user.email, user.displayName, 'PUT');
                 const redirect_ui = location?.state?.from || '/';
-                history.replace(redirect_ui);
+                navigate(redirect_ui);
                 setAuthError('');
             }).catch((error) => {
                 setAuthError(error.message);
